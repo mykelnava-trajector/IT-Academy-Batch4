@@ -4,7 +4,14 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
+interface PokemonAbilities1{
+    hp:number;
+    ability:string;
+ }
+ interface PokemonAbilities2{
+    hp:number;
+    ability: string;
+ }
 const getPokemon = async() => {
     rl.question('What is your pokemon? ', async(pokemonpick) => {
         const yourPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonpick}`)
@@ -32,10 +39,7 @@ const getPokemon = async() => {
     });
     
  }  
- interface yourPokemonAbilities{
-    hp:number;
-    ability:string;
- }
+
 
 console.log(`==============Pokemon Fight!==============`)
 rl.question('Do you want to continue? y/n\nAnswer: ', (menuanswer) => {
