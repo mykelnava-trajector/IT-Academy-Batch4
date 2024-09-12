@@ -95,7 +95,7 @@ const initialPokemon = () =>{
                 initialPokemon()
                 break;
         }
-     });
+     })
 }
 initialPokemon()
 const pokemonchoice = () =>{
