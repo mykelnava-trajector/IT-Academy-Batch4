@@ -41,10 +41,19 @@ var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-var getYourPokemon = function () { return __awaiter(void 0, void 0, void 0, function () {
+function PokeStats1(yourPStats) {
+    console.log("Your pokemon stats are:\nMove: ".concat(yourPStats.ability, ", Damage: ").concat(yourPStats.dmg, ", and HP: ").concat(yourPStats.hp));
+}
+function PokeStats2(enemyPStats) {
+    console.log("Enemy pokemon stats are:\nMove: ".concat(enemyPStats.ability, ", Damage: ").concat(enemyPStats.dmg, ", and HP: ").concat(enemyPStats.hp));
+}
+var PokemonB = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var pokemonpick, enemypick;
     return __generator(this, function (_a) {
-        rl.question('What is your pokemon? ', function (pokemonpick) { return __awaiter(void 0, void 0, void 0, function () {
-            var yourPokemon, yourPokemondata;
+        pokemonpick = "";
+        enemypick = "";
+        rl.question('What is your pokemon? [Examples are: charizard, pikachu]\nAnswer:', function (pokemonpick) { return __awaiter(void 0, void 0, void 0, function () {
+            var yourPokemon, yourPokemondata, yourPokemonsMove, yourPokemonMovedata, yourPStats;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, fetch("https://pokeapi.co/api/v2/pokemon/".concat(pokemonpick))];
@@ -53,7 +62,74 @@ var getYourPokemon = function () { return __awaiter(void 0, void 0, void 0, func
                         return [4 /*yield*/, yourPokemon.json()];
                     case 2:
                         yourPokemondata = _a.sent();
-                        console.log("You picked: ".concat(yourPokemondata.name));
+                        console.log("===================================");
+                        console.log("You picked:  ".concat(yourPokemondata.name));
+                        return [4 /*yield*/, fetch(yourPokemondata.moves[0].move.url)];
+                    case 3:
+                        yourPokemonsMove = _a.sent();
+                        return [4 /*yield*/, yourPokemonsMove.json()];
+                    case 4:
+                        yourPokemonMovedata = _a.sent();
+                        yourPStats = {
+                            ability: yourPokemondata.moves[0].move.name,
+                            dmg: yourPokemonMovedata.accuracy,
+                            hp: yourPokemondata.stats[0].base_stat
+                        };
+                        console.log("===================================");
+                        PokeStats1(yourPStats);
+                        console.log("===================================");
+                        rl.question('What is the enemy pokemon? [Examples are: charizard, pikachu]\nAnswer: ', function (enemypick) { return __awaiter(void 0, void 0, void 0, function () {
+                            var enemyPokemon, enemyPokemondata, enemyPokemonsMove, enemyPokemonsMovedata, enemyPStats, yourPokeAttacked, enemyPokeAttacked;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, fetch("https://pokeapi.co/api/v2/pokemon/".concat(enemypick))];
+                                    case 1:
+                                        enemyPokemon = _a.sent();
+                                        return [4 /*yield*/, enemyPokemon.json()];
+                                    case 2:
+                                        enemyPokemondata = _a.sent();
+                                        console.log("===================================");
+                                        console.log("Enemy picked: ".concat(enemyPokemondata.name));
+                                        return [4 /*yield*/, fetch(enemyPokemondata.moves[0].move.url)];
+                                    case 3:
+                                        enemyPokemonsMove = _a.sent();
+                                        return [4 /*yield*/, enemyPokemonsMove.json()];
+                                    case 4:
+                                        enemyPokemonsMovedata = _a.sent();
+                                        enemyPStats = {
+                                            ability: enemyPokemondata.moves[0].move.name,
+                                            dmg: enemyPokemonsMovedata.accuracy,
+                                            hp: enemyPokemondata.stats[0].base_stat
+                                        };
+                                        console.log("===================================");
+                                        PokeStats2(enemyPStats);
+                                        console.log("===================================");
+                                        console.log("Battle between ".concat(yourPokemondata.name, " and ").concat(enemyPokemondata.name));
+                                        console.log("===================================");
+                                        console.log("Your pokemon:".concat(yourPokemondata.name, "\n"));
+                                        PokeStats1(yourPStats);
+                                        console.log("Your pokemon:".concat(enemyPokemondata.name, "\n"));
+                                        PokeStats2(enemyPStats);
+                                        console.log("===================================");
+                                        console.log("Fight!");
+                                        yourPokeAttacked = yourPStats.hp - enemyPStats.dmg;
+                                        enemyPokeAttacked = enemyPStats.hp - yourPStats.dmg;
+                                        if (yourPokeAttacked > 0 && enemyPokeAttacked <= 0 || yourPokeAttacked > enemyPokeAttacked) {
+                                            console.log("Your pokemon wins.");
+                                            pokemonchoice();
+                                        }
+                                        else if (enemyPokeAttacked > 0 && yourPokeAttacked <= 0 || enemyPokeAttacked > yourPokeAttacked) {
+                                            console.log("Enemy pokemon wins.");
+                                            pokemonchoice();
+                                        }
+                                        else if (yourPokeAttacked <= 0 && enemyPokeAttacked <= 0 || yourPokeAttacked == enemyPokeAttacked) {
+                                            console.log("It's a draw.");
+                                            pokemonchoice();
+                                        }
+                                        return [2 /*return*/];
+                                }
+                            });
+                        }); });
                         return [2 /*return*/];
                 }
             });
@@ -61,54 +137,46 @@ var getYourPokemon = function () { return __awaiter(void 0, void 0, void 0, func
         return [2 /*return*/];
     });
 }); };
-var getEnemyPokemon = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        rl.question('What is the enemy pokemon? ', function (enemypick) { return __awaiter(void 0, void 0, void 0, function () {
-            var enemyPokemon, enemyPokemondata;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        console.log("Your pokemon is: ".concat(enemypick));
-                        return [4 /*yield*/, fetch("https://pokeapi.co/api/v2/pokemon/".concat(enemypick))];
-                    case 1:
-                        enemyPokemon = _a.sent();
-                        return [4 /*yield*/, enemyPokemon.json()];
-                    case 2:
-                        enemyPokemondata = _a.sent();
-                        console.log("You picked: ".concat(enemyPokemondata.name));
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        return [2 /*return*/];
+var initialPokemon = function () {
+    console.clear();
+    console.log("==============Pokemon Fight!==============");
+    rl.question('Do you want to continue? y/n\nAnswer: ', function (menuanswer) {
+        var option = menuanswer;
+        switch (option) {
+            case 'y':
+                console.clear();
+                pokemonchoice();
+                break;
+            case 'n':
+                console.clear();
+                console.log('Goodbye.');
+                process.exit(0);
+                break;
+            default:
+                console.clear();
+                console.log("\nThe input isn't in any of the option. Pick only y/n.");
+                initialPokemon();
+                break;
+        }
     });
-}); };
-console.log("==============Pokemon Fight!==============");
-rl.question('Do you want to continue? y/n\nAnswer: ', function (menuanswer) {
-    var option = menuanswer;
-    switch (option) {
-        case 'y':
-            getYourPokemon();
-            break;
-        case 'n':
-            console.log('Goodbye. Press ctrl + c in order to fully exit.');
-            break;
-        default:
-            console.log("\nThe input isn't in any of the option. Restart the game by pressing ctrl + c and running it again.");
-            break;
-    }
-});
-// rl.question('Enter your name: ', (answer) => {
-//     console.log(`Your pokemon pick is ${answer}`);
-//   });
-// console.log(`==========================================`)
-// //Dapat dito yung input ng user kung ano magiging pokemon niya
-// console.log(`What would you choose?\n\tOption 1. Fight a pokemon.\n\tOption 2. Select another pokemon`)
-// //Dapat dito yung input ng user kung ano magiging choice niya
-// console.log(`==========================================`)
-// const getEnemyPokemon = async(enemyname) =>{
-//     const enemyPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemyname}`)
-//     const enemyPokemondata = await enemyPokemon.json();
-//     console.log(`Your enemy is: ${enemyPokemondata.name}`)
-// }
-// getEnemyPokemon(`raichu`)
+};
+initialPokemon();
+var pokemonchoice = function () {
+    rl.question('What choice do you want to go to?\n\t[1].Choose your pokemons to battle.\n\t[2].Exit.\n Answer: ', function (option1) {
+        switch (option1) {
+            case '1':
+                console.clear();
+                PokemonB();
+                break;
+            case '2':
+                console.clear();
+                console.log("Thank you for playing.");
+                process.exit(0);
+                break;
+            default:
+                console.log("Invalid input. Try again.");
+                pokemonchoice();
+                break;
+        }
+    });
+};
