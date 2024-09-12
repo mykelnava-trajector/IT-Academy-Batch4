@@ -7,7 +7,6 @@
   "scripts": {
     "build": "npx tsc testinput.ts && node testinput.js",
     "start": "npx tsc PokemonGame.ts && node PokemonGame.js"
-
   },
   "dependencies": {
     "prompt-sync": "^4.2.0",
