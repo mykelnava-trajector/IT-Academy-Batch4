@@ -68,8 +68,6 @@ const PokemonB = async() => {
                 process.exit(0);
             }
         });
-        
-        
     });
     
  }  
