@@ -98,7 +98,6 @@ const initialPokemon = () =>{
      });
 }
 initialPokemon()
-
 const pokemonchoice = () =>{
     rl.question('What choice do you want to go to?\n\t[1].Choose your pokemons to battle.\n\t[2].Exit.\n Answer: ', (option1) => {
         switch(option1){
