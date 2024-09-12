@@ -19,7 +19,7 @@ function PokeStats2 (enemyPStats:PokemonAbilities1){
     )
 }
 const PokemonB = async() => {
-    rl.question('What is your pokemon? Example: charizard, pikachu', async(pokemonpick) => {
+    rl.question('What is your pokemon? [Examples are: charizard, pikachu]\nAnswer:', async(pokemonpick) => {
         const yourPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonpick}`)
         const yourPokemondata = await yourPokemon.json();
         console.log(`===================================`)
@@ -34,7 +34,7 @@ const PokemonB = async() => {
         console.log(`===================================`)
         PokeStats1(yourPStats)
         console.log(`===================================`)
-    rl.question('What is the enemy pokemon? Example: charizard, pikachu.', async(enemypick) => {
+    rl.question('What is the enemy pokemon? [Examples are: charizard, pikachu]\nAnswer: ', async(enemypick) => {
             const enemyPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemypick}`)
             const enemyPokemondata= await enemyPokemon.json();
             console.log(`===================================`)
@@ -48,7 +48,6 @@ const PokemonB = async() => {
             }
             console.log(`===================================`)
             PokeStats2(enemyPStats)
-            console.clear()
             console.log(`===================================`)
             console.log(`Battle between ${yourPokemondata.name} and ${enemyPokemondata.name}`)
             console.log(`===================================`)
@@ -75,26 +74,28 @@ const PokemonB = async() => {
         })
     })
  }  
-const initialPokemon = () =>{console.log(`==============Pokemon Fight!==============`)
-rl.question('Do you want to continue? y/n\nAnswer: ', (menuanswer) => {
-    let option = menuanswer
-    switch(option){
-        case 'y':
-            console.clear()
-            pokemonchoice()
-            break;
-        case 'n':
-            console.clear()
-            console.log('Goodbye.')
-            process.exit(0)
-         break;
-        default:
-            console.clear()
-            console.log(`\nThe input isn't in any of the option. Pick only y/n.`)
-            initialPokemon()
-            break;
-    }
-  });
+const initialPokemon = () =>{
+    console.clear()
+    console.log(`==============Pokemon Fight!==============`)
+    rl.question('Do you want to continue? y/n\nAnswer: ', (menuanswer) => {
+        let option = menuanswer
+        switch(option){
+            case 'y':
+                console.clear()
+                pokemonchoice()
+                break;
+            case 'n':
+                console.clear()
+                console.log('Goodbye.')
+                process.exit(0)
+                break;
+            default:
+                console.clear()
+                console.log(`\nThe input isn't in any of the option. Pick only y/n.`)
+                initialPokemon()
+                break;
+        }
+     });
 }
 initialPokemon()
 
