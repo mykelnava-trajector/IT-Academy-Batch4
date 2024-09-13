@@ -32,8 +32,6 @@ const PokemonB = async() => {
             hp: yourPokemondata.stats[0].base_stat
         }
         console.log(`===================================`)
-        PokeStats1(yourPStats)
-        console.log(`===================================`)
     rl.question('What is the enemy pokemon? [Examples are: charizard, pikachu]\nAnswer: ', async(enemypick) => {
             const enemyPokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${enemypick}`)
             const enemyPokemondata= await enemyPokemon.json();
@@ -46,14 +44,14 @@ const PokemonB = async() => {
                 dmg: enemyPokemonsMovedata.accuracy,
                 hp: enemyPokemondata.stats[0].base_stat
             }
-            console.log(`===================================`)
-            PokeStats2(enemyPStats)
+            console.clear()
             console.log(`===================================`)
             console.log(`Battle between ${yourPokemondata.name} and ${enemyPokemondata.name}`)
             console.log(`===================================`)
             console.log(`Your pokemon:${yourPokemondata.name}\n`)
             PokeStats1(yourPStats)
-            console.log(`Your pokemon:${enemyPokemondata.name}\n`)
+            console.log(`================VERSUS=================`)
+            console.log(`\nEnemy pokemon:${enemyPokemondata.name}\n`)
             PokeStats2(enemyPStats)
             console.log(`===================================`)
             console.log(`Fight!`)
@@ -75,7 +73,6 @@ const PokemonB = async() => {
     })
  }  
 const initialPokemon = () =>{
-    console.clear()
     console.log(`==============Pokemon Fight!==============`)
     rl.question('Do you want to continue? y/n\nAnswer: ', (menuanswer) => {
         let option = menuanswer
@@ -99,6 +96,7 @@ const initialPokemon = () =>{
 }
 initialPokemon()
 const pokemonchoice = () =>{
+    console.log(`===================================`)
     rl.question('What choice do you want to go to?\n\t[1].Choose your pokemons to battle.\n\t[2].Exit.\n Answer: ', (option1) => {
         switch(option1){
             case '1':
