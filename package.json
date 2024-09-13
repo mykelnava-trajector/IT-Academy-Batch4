@@ -1,0 +1,11 @@
+{
+    "devDependencies": {
+      "nodemon": "^3.1.4",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.6.2"
+    },
+    "scripts": {
+      "build": "npx tsc testinput.ts && node testinput.js",
+      "start": "npx tsc PokemonGame.ts && node PokemonGame.js"
+    }
+  }
