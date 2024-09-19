@@ -1,11 +1,18 @@
 {
     "devDependencies": {
-      "nodemon": "^3.1.4",
-      "ts-node": "^10.9.2",
-      "typescript": "^5.6.2"
+        "nodemon": "^3.1.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.2"
     },
     "scripts": {
-      "build": "npx tsc testinput.ts && node testinput.js",
-      "start": "npx tsc PokemonGame.ts && node PokemonGame.js"
+        "build": "npx tsc testinput.ts && node testinput.js",
+        "start": "npx tsc PokemonGame.ts && node PokemonGame.js",
+        "test": "npx tsc index.ts && node index.js",
+        "run": "npx tsc PokemonExpress.ts && node PokemonExpress.js"
+    },
+    "dependencies": {
+        "base64-js": "^1.5.1",
+        "express": "^4.21.0",
+        "node-fetch": "^3.3.2"
     }
-  }
+}
