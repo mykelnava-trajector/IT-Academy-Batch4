@@ -9,27 +9,18 @@ interface PokemonBoxInterface{
     sound: string;
 }
 let PokemonBox: PokemonBoxInterface[] = []
-// const FindPokemon = async (PokemonPick)=>{
-//     const PokeAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${PokemonPick}`)
-//     const PokeAPIJSON = await PokeAPI.json()
-//     let PBox: PokemonBoxInterface = {
-//         name: PokeAPIJSON.name,
-//         image: PokeAPIJSON.OfficialArtwork.front_default,
-//         move: PokeAPIJSON.moves[0].move.name,
-//         sound: PokeAPIJSON.cries.latest
-//     }
-//     PokemonBox.push(PBox);
-// }
 
-const StorePokemon2 = async(PokemonP:string) => {
+const StorePokemon = async(PokemonP:string) => {
     const PokeAPI = await fetch(`https://pokeapi.co/api/v2/pokemon/${PokemonP}`)
     const PokeAPIJSON = await PokeAPI.json()
     const PokemonAPIImage = await fetch(PokeAPIJSON.sprites.front_default);
     const image = await PokemonAPIImage.arrayBuffer();
     const imageBase64 = Buffer.from(image).toString('base64');
+    // Use this code when it's when you want to change the url to a base64.
     // const PokemonAPISound = await fetch(PokeAPIJSON.cries.latest)
     // const sound = await PokemonAPISound.arrayBuffer();
     // const soundBase64 = Buffer.from(sound).toString('base64');
+    // Replace sound: PokeAPIJSON.cries.latest with sound: soundBase64
     let PBox2: PokemonBoxInterface = {
         name: PokeAPIJSON.name,
         image: imageBase64,
@@ -55,7 +46,7 @@ app.get(`/`, (req,res) => {
 })
 app.get(`/storepokemon`, (req,res)=>{
     let PokeP = req.query.PokeP;
-    StorePokemon2(PokeP)
+    StorePokemon(PokeP)
     if(PokeP){
        res.send(`Your pokemon ${PokeP} has been added to the box.`)
     }
